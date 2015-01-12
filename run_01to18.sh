@@ -18,3 +18,5 @@ python 0_main_analyze_discharge.py 17 &
 python 0_main_analyze_discharge.py 18 &
 wait
 
+# for runs at cartesius
+killall -u edwinhs
