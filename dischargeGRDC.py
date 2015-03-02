@@ -102,8 +102,13 @@ class DischargeEvaluation(object):
         # Currently, we just use monthly observation.
         filesIndirectoryGRDC = directoryGRDC+'/*.mon'
         
-        fileList = glob.glob(filesIndirectoryGRDC) 
+        fileList = glob.glob(filesIndirectoryGRDC)
+	if fileList == []:
+	    filesIndirectoryGRDC = directoryGRDC+'/*.day'
+            fileList = glob.glob(filesIndirectoryGRDC)
         
+	print fileList
+
         for fileName in fileList:
             print fileName
             self.getAttributeForEachStation(fileName)
@@ -224,6 +229,8 @@ class DischargeEvaluation(object):
         catchmentAreaAll = pcr.catchmenttotal(cellArea, lddMap) / (1000*1000)  # unit: km2
         xCoordinate = pcr.xcoordinate(cloneMap)
         yCoordinate = pcr.ycoordinate(cloneMap)
+
+	print "Jaaaaaa"
         
         for id in self.list_of_grdc_ids: 
 
@@ -481,6 +488,7 @@ class DischargeEvaluation(object):
             txtModel.close()
             
             # run R for evaluation
+	    print self.attributeGRDC["grdc_file_name"][str(id)]
             cmd = 'R -f evaluateMonthlyDischarge.R '+self.attributeGRDC["grdc_file_name"][str(id)]+' '+txtModelFile
             print(cmd); os.system(cmd)
             

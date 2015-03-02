@@ -65,6 +65,9 @@ simulation = data.frame(modelTable[,1], modelTable[,2])
 names(simulation)[1] <- "date"
 names(simulation)[2] <- "simulation"
 simulation$date      = paste(substr(modelTable[,1], 1,8),"15",sep="")  #  simulation date -> assume day = 15
+if(substr(grdcFile, nchar(grdcFile)-2, nchar(grdcFile)) == "day"){
+  simulation$date      = modelTable[,1]  #  simulation date -> assume day = original day
+}
 simulation$date      = as.Date(simulation$date,"%Y-%m-%d")
 
 # load the GRDC data
@@ -82,7 +85,9 @@ grdcAlternative1 <- data.frame(grdcTable[,1],grdcTable$Calculated)
 names(grdcAlternative1)[1] <- "date"
 names(grdcAlternative1)[2] <- "grdc_alternative1"
 if ( length(grdcAlternative1$date) > 0) {
-grdcAlternative1$date = paste(substr(grdcAlternative1$date, 1,8),"15",sep="")  #  simulation date -> assume day = 15
+if(substr(grdcFile, nchar(grdcFile)-2, nchar(grdcFile)) == "mon"){
+  grdcAlternative1$date = paste(substr(grdcAlternative1$date, 1,8),"15",sep="") # simulation date -> assume day = 15
+}
 grdcAlternative1$date = as.Date(grdcAlternative1$date,"%Y-%m-%d") 
 }
 #
@@ -94,7 +99,9 @@ grdcAlternative2 <- data.frame(grdcTable[,1],grdcTable$Calculated)
 names(grdcAlternative2)[1] <- "date"
 names(grdcAlternative2)[2] <- "grdc_alternative2"
 if ( length(grdcAlternative2$date) > 0) {
-grdcAlternative2$date = paste(substr(grdcAlternative2$date, 1,8),"15",sep="")  #  simulation date -> assume day = 15
+if(substr(grdcFile, nchar(grdcFile)-2, nchar(grdcFile)) == "mon"){
+  grdcAlternative2$date = paste(substr(grdcAlternative2$date, 1,8),"15",sep="") # simulation date -> assume day = 15
+}
 grdcAlternative2$date = as.Date(grdcAlternative2$date,"%Y-%m-%d")
 }
 #
@@ -106,7 +113,9 @@ grdcAlternative3 <- data.frame(grdcTable[,1],grdcTable$Original)
 names(grdcAlternative3)[1] <- "date"
 names(grdcAlternative3)[2] <- "grdc_alternative3"
 if ( length(grdcAlternative3$date) > 0) {
-grdcAlternative3$date = paste(substr(grdcAlternative3$date, 1,8),"15",sep="")  #  simulation date -> assume day = 15
+if(substr(grdcFile, nchar(grdcFile)-2, nchar(grdcFile)) == "mon"){
+  grdcAlternative3$date = paste(substr(grdcAlternative3$date, 1,8),"15",sep="") # simulation date -> assume day = 15
+}
 grdcAlternative3$date = as.Date(grdcAlternative3$date,"%Y-%m-%d")
 }
 #
